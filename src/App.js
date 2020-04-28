@@ -24,21 +24,18 @@ export default function App() {
   async function handleLikeRepository(id) {
     const response = await api.post(`repositories/${id}/like`);
 
-    /*const repository = response.data;
+    const repositoryLiked = response.data;
 
-    const repositoryIndex = repositories.findIndex(repository => repository.id === id);
-
-    if (repositoryIndex < 0) {
-      return response.sendStatus(400).json({ error: 'Repositório não encontrado.' });
-    }
-    console.log(repositories);
-    const repositoriesAlt = repositories;
-    repositoriesAlt[repositoryIndex] = repository;
-    console.log(repositoriesAlt);
-    setRepositories(repositoriesAlt);*/
-    api.get('repositories').then(response => {
-      setRepositories(response.data);
+    const repositoriesAlt = repositories.map(repository => {
+      if (repository.id === id) {
+        return repositoryLiked;
+      }
+      else {
+        return repository;
+      }
     });
+
+    setRepositories(repositoriesAlt);
   }
 
   return (
